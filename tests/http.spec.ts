@@ -251,6 +251,66 @@ describe('HTTP', () => {
 
       expect(spy).toHaveBeenCalledWith(jsonApiError, 422, 'initReport');
     });
+
+    it('should include tags in workflowData when provided', async () => {
+      const makeRequestSpy = jest
+        .spyOn(needle, 'makeRequest')
+        .mockResolvedValue({ success: true, body: { reportId: 'test-report-id' } });
+
+      const tags = [
+        { key: 'env', value: 'prod' },
+        { key: 'team', value: 'security' },
+      ];
+
+      const optionsWithTags = {
+        ...options,
+        report: {
+          enabled: true,
+          projectName: 'test-project',
+          tags,
+        },
+      };
+
+      await initReport(optionsWithTags);
+
+      expect(makeRequestSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            workflowData: expect.objectContaining({
+              projectName: 'test-project',
+              tags,
+            }),
+          }),
+        }),
+      );
+    });
+
+    it('should include undefined tags in workflowData when not provided', async () => {
+      const makeRequestSpy = jest
+        .spyOn(needle, 'makeRequest')
+        .mockResolvedValue({ success: true, body: { reportId: 'test-report-id' } });
+
+      const optionsWithoutTags = {
+        ...options,
+        report: {
+          enabled: true,
+          projectName: 'test-project',
+        },
+      };
+
+      await initReport(optionsWithoutTags);
+
+      expect(makeRequestSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            workflowData: expect.objectContaining({
+              projectName: 'test-project',
+              tags: undefined,
+            }),
+          }),
+        }),
+      );
+    });
   });
 
   describe('getReport', () => {

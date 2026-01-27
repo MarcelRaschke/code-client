@@ -54,6 +54,39 @@ describe('Functional test for report', () => {
       expect(result).toHaveProperty('analysisResult');
     });
 
+    it('should pass tags through to initReport when provided', async () => {
+      const tags = [
+        { key: 'env', value: 'production' },
+        { key: 'team', value: 'platform' },
+      ];
+
+      const reportConfig = {
+        enabled: true,
+        projectName: 'test-project',
+        targetName: 'test-target',
+        targetRef: 'test-ref',
+        remoteRepoUrl: 'https://github.com/owner/repo',
+        tags,
+      };
+
+      const result = await reportBundle({
+        bundleHash: 'dummy-bundle',
+        ...baseConfig,
+        report: reportConfig,
+      });
+
+      expect(mockInitReport).toHaveBeenCalledWith(
+        expect.objectContaining({
+          report: expect.objectContaining({
+            tags,
+          }),
+        }),
+      );
+
+      expect(result).not.toBeNull();
+      expect(result.status).toBe('COMPLETE');
+    });
+
     it('should fail report if no project name was given', async () => {
       const reportConfig = {
         enabled: true,

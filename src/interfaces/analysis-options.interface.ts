@@ -63,6 +63,7 @@ export interface ReportOptions {
   targetName?: string;
   targetRef?: string;
   remoteRepoUrl?: string;
+  tags?: Array<{ key: string; value: string }>;
 }
 
 export interface ScmReportOptions {
