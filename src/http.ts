@@ -539,6 +539,7 @@ export async function initReport(options: UploadReportOptions): Promise<Result<s
         targetName: options.report.targetName,
         targetRef: options.report.targetRef,
         remoteRepoUrl: options.report.remoteRepoUrl,
+        tags: options.report.tags,
       },
       key: {
         type: 'file',
