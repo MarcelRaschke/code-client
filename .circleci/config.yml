@@ -109,6 +109,7 @@ workflows:
           name: Security Scans
           context:
             - analysis_workspaces
+            - prodsec-orb-runtime
       - lint:
           node_version: '12.22.7'
       - test:
