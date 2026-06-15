@@ -1,5 +1,5 @@
 import * as uuid from 'uuid';
-import pick from 'lodash.pick';
+import { pick } from './utils/pick';
 import { POLLING_INTERVAL } from './constants';
 import { emitter } from './emitter';
 import {

@@ -1,4 +1,4 @@
-import pick from 'lodash.pick';
+import { pick } from '../src/utils/pick';
 import 'jest-extended';
 
 import { baseURL, sessionToken, source, TEST_TIMEOUT } from './constants/base';

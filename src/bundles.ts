@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
-import pick from 'lodash.pick';
 import omit from 'lodash.omit';
+import { pick } from './utils/pick';
 import pMap from 'p-map';
 
 import { BundleFiles, FileInfo, SupportedFiles } from './interfaces/files.interface';

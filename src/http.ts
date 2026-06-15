@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import pick from 'lodash.pick';
+import { pick } from './utils/pick';
 import { gzip } from 'zlib';
 import { promisify } from 'util';
 
