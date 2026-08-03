@@ -100,6 +100,7 @@ workflows:
       - prodsec/secrets-scan:
           context:
             - snyk-bot-slack
+            - prodsec-orb-runtime
           channel: snyk-on-snyk-codesec_code-integrations
           filters:
             branches:
